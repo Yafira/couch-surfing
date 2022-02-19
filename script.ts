@@ -1,5 +1,6 @@
 import { showReviewTotal, populateUser } from './utils.js';
 import { Permissions, LoyaltyUser } from './enums.js';
+import { Price, Country } from './types.js';
 const propertyContainer = document.querySelector('.properties');
 const footer = document.querySelector('.footer');
 
@@ -38,16 +39,16 @@ const you = {
 	stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow'],
 };
 
-// Properties
+// Array of Properties
 const properties: {
 	image: string;
 	title: string;
-	price: number;
+	price: Price;
 	location: {
 		firstLine: string;
 		city: string;
 		code: number;
-		country: string;
+		country: Country;
 	};
 	contact: [number, string]; // tuple
 	isAvailable: boolean;
@@ -68,7 +69,7 @@ const properties: {
 	{
 		image: 'images/poland-property.jpg',
 		title: 'Polish Cottage',
-		price: 34,
+		price: 30,
 		location: {
 			firstLine: 'no 23',
 			city: 'Gdansk',
@@ -81,7 +82,7 @@ const properties: {
 	{
 		image: 'images/london-property.jpg',
 		title: 'London Flat',
-		price: 23,
+		price: 25,
 		location: {
 			firstLine: 'flat 15',
 			city: 'London',
