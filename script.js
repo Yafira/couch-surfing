@@ -2,7 +2,7 @@ import { showReviewTotal, populateUser } from './utils.js';
 import { Permissions, LoyaltyUser } from './enums.js';
 const propertyContainer = document.querySelector('.properties');
 const footer = document.querySelector('.footer');
-let isOpen;
+let isLoggedIn;
 // Reviews
 const reviews = [
     {
@@ -79,6 +79,15 @@ const properties = [
 // Functions
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser);
 populateUser(you.isReturning, you.firstName);
+let authorityStatus;
+isLoggedIn = false;
+function showDetails(authorityStatus, element, price) {
+    if (authorityStatus) {
+        const priceDisplay = document.createElement('div');
+        priceDisplay.innerHTML = price.toString() + '/night';
+        element.appendChild(priceDisplay);
+    }
+}
 // Add the properties
 for (let i = 0; i < properties.length; i++) {
     const card = document.createElement('div');
@@ -88,6 +97,7 @@ for (let i = 0; i < properties.length; i++) {
     image.setAttribute('src', properties[i].image);
     card.appendChild(image);
     propertyContainer === null || propertyContainer === void 0 ? void 0 : propertyContainer.appendChild(card);
+    showDetails(you.permissions, card, properties[i].price);
 }
 // Use your current location, time and temperature
 let currentLocation = ['New York', '0:40', 26];
