@@ -1,7 +1,7 @@
 const reviewTotalDisplay = document.querySelector('#reviews');
 const returningUserDisplay = document.querySelector('#returning-user');
 const userNameDisplay = document.querySelector('#user');
-import { LoyaltyUser } from './enums';
+import { LoyaltyUser } from './enums.js';
 
 export function showReviewTotal(
 	value: number,
@@ -9,18 +9,22 @@ export function showReviewTotal(
 	isLoyalty: LoyaltyUser
 ) {
 	const iconDisplay = LoyaltyUser.GOLD_USER ? '⭐' : '';
-	reviewTotalDisplay.innerHTML =
-		'review total ' +
-		value.toString() +
-		'| last reviewed by ' +
-		reviewer +
-		' ' +
-		iconDisplay;
+
+	if (reviewTotalDisplay) {
+		reviewTotalDisplay.innerHTML =
+			'review total ' +
+			value.toString() +
+			'| last reviewed by ' +
+			reviewer +
+			' ' +
+			iconDisplay;
+	}
 }
 
 export function populateUser(isReturning: boolean, userName: string) {
-	if (isReturning == true) {
+	if (returningUserDisplay && isReturning == true) {
 		returningUserDisplay.innerHTML = 'back';
 	}
-	userNameDisplay.innerHTML = userName;
+
+	if (userNameDisplay) userNameDisplay.innerHTML = userName;
 }

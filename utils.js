@@ -1,24 +1,23 @@
-"use strict";
-exports.__esModule = true;
-exports.populateUser = exports.showReviewTotal = void 0;
-var reviewTotalDisplay = document.querySelector('#reviews');
-var returningUserDisplay = document.querySelector('#returning-user');
-var userNameDisplay = document.querySelector('#user');
-function showReviewTotal(value, reviewer, isLoyalty) {
-    var iconDisplay = isLoyalty ? '⭐' : '';
-    reviewTotalDisplay.innerHTML =
-        'review total ' +
-            value.toString() +
-            '| last reviewed by ' +
-            reviewer +
-            ' ' +
-            iconDisplay;
+const reviewTotalDisplay = document.querySelector('#reviews');
+const returningUserDisplay = document.querySelector('#returning-user');
+const userNameDisplay = document.querySelector('#user');
+import { LoyaltyUser } from './enums.js';
+export function showReviewTotal(value, reviewer, isLoyalty) {
+    const iconDisplay = LoyaltyUser.GOLD_USER ? '⭐' : '';
+    if (reviewTotalDisplay) {
+        reviewTotalDisplay.innerHTML =
+            'review total ' +
+                value.toString() +
+                '| last reviewed by ' +
+                reviewer +
+                ' ' +
+                iconDisplay;
+    }
 }
-exports.showReviewTotal = showReviewTotal;
-function populateUser(isReturning, userName) {
-    if (isReturning == true) {
+export function populateUser(isReturning, userName) {
+    if (returningUserDisplay && isReturning == true) {
         returningUserDisplay.innerHTML = 'back';
     }
-    userNameDisplay.innerHTML = userName;
+    if (userNameDisplay)
+        userNameDisplay.innerHTML = userName;
 }
-exports.populateUser = populateUser;
