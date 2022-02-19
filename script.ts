@@ -116,3 +116,13 @@ for (let i = 0; i < properties.length; i++) {
 	card.appendChild(image);
 	propertyContainer.appendChild(card);
 }
+
+// Use your current location, time and temperature
+let currentLocation: [string, string, number] = ['New York', '0:40', 26];
+footer.innerHTML =
+	currentLocation[0] +
+	' ' +
+	currentLocation[1] +
+	' ' +
+	currentLocation[2] +
+	'°';
