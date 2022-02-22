@@ -124,7 +124,7 @@ function addReviews(array) {
 }
 if (button)
     button.addEventListener('click', () => addReviews(reviews));
-let currentLocation = ['London', '11.03', 17];
+let currentLocation = ['New York', '19.03', 43];
 if (footer) {
     footer.innerHTML =
         currentLocation[0] +
