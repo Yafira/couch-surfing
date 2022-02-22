@@ -1,12 +1,16 @@
-import { showReviewTotal, populateUser } from './utils.js';
-import { Permissions, LoyaltyUser } from './enums.js';
+// Modules
+import { showReviewTotal, populateUser, showDetails, getTopTwoReviews, } from './utils.js';
+import { LoyaltyUser, adminPermissions } from './enums.js'; // exports
 const propertyContainer = document.querySelector('.properties');
+const reviewContainer = document.querySelector('.reviews');
+const container = document.querySelector('.container');
+const button = document.querySelector('button');
 const footer = document.querySelector('.footer');
 let isLoggedIn;
 // Reviews
 const reviews = [
     {
-        name: 'Sheia',
+        name: 'Sheila',
         stars: 5,
         loyaltyUser: LoyaltyUser.GOLD_USER,
         date: '01-04-2021',
@@ -22,14 +26,12 @@ const reviews = [
         stars: 4,
         loyaltyUser: LoyaltyUser.SILVER_USER,
         date: '27-03-2021',
-        description: 'Great hosts, location was a bit further than said',
     },
 ];
-// User
 const you = {
     firstName: 'Bobby',
     lastName: 'Brown',
-    permissions: Permissions.ADMIN,
+    permissions: adminPermissions.ADMIN,
     isReturning: true,
     age: 35,
     stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow'],
@@ -46,7 +48,7 @@ const properties = [
             code: 45632,
             country: 'Colombia',
         },
-        contact: [+1123495082908, 'marywinkle@gmail.com'],
+        contact: [+112343823978921, 'marywinkle@gmail.com'],
         isAvailable: true,
     },
     {
@@ -59,7 +61,7 @@ const properties = [
             code: 343903,
             country: 'Poland',
         },
-        contact: [+1123495082908, 'garydavis@hotmail.com'],
+        contact: [+1298239028490830, 'garydavis@hotmail.com'],
         isAvailable: false,
     },
     {
@@ -72,22 +74,26 @@ const properties = [
             code: 35433,
             country: 'United Kingdom',
         },
-        contact: [+1123495082908, 'andyluger@aol.com'],
+        contact: [+34829374892553, 'andyluger@aol.com'],
         isAvailable: true,
+    },
+    {
+        image: 'images/malaysian-hotel.jpeg',
+        title: 'Malia Hotel',
+        price: 35,
+        location: {
+            firstLine: 'Room 4',
+            city: 'Malia',
+            code: 45334,
+            country: 'Malaysia',
+        },
+        contact: [+60349822083, 'lee34@gmail.com'],
+        isAvailable: false,
     },
 ];
 // Functions
 showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser);
 populateUser(you.isReturning, you.firstName);
-let authorityStatus;
-isLoggedIn = false;
-function showDetails(authorityStatus, element, price) {
-    if (authorityStatus) {
-        const priceDisplay = document.createElement('div');
-        priceDisplay.innerHTML = price.toString() + '/night';
-        element.appendChild(priceDisplay);
-    }
-}
 // Add the properties
 for (let i = 0; i < properties.length; i++) {
     const card = document.createElement('div');
@@ -96,11 +102,29 @@ for (let i = 0; i < properties.length; i++) {
     const image = document.createElement('img');
     image.setAttribute('src', properties[i].image);
     card.appendChild(image);
-    propertyContainer === null || propertyContainer === void 0 ? void 0 : propertyContainer.appendChild(card);
     showDetails(you.permissions, card, properties[i].price);
+    if (propertyContainer)
+        propertyContainer.appendChild(card);
 }
-// Use your current location, time and temperature
-let currentLocation = ['New York', '0:40', 26];
+let count = 0;
+function addReviews(array) {
+    if (!count) {
+        count++;
+        const topTwo = getTopTwoReviews(array);
+        for (let i = 0; i < topTwo.length; i++) {
+            const card = document.createElement('div');
+            card.classList.add('review-card');
+            card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name;
+            if (reviewContainer)
+                reviewContainer.appendChild(card);
+        }
+        if (container && button)
+            container.removeChild(button);
+    }
+}
+if (button)
+    button.addEventListener('click', () => addReviews(reviews));
+let currentLocation = ['London', '11.03', 17];
 if (footer) {
     footer.innerHTML =
         currentLocation[0] +
@@ -110,3 +134,27 @@ if (footer) {
             currentLocation[2] +
             '°';
 }
+// Classes
+class MainProperty {
+    src;
+    title;
+    reviews;
+    constructor(src, title, reviews) {
+        this.src = src;
+        this.title = title;
+        this.reviews = reviews;
+    }
+}
+let yourMainProperty = new MainProperty('images/italian-property.jpg', 'Italian House', [
+    {
+        name: 'Olive',
+        stars: 5,
+        loyaltyUser: LoyaltyUser.GOLD_USER,
+        date: '12-04-2021',
+    },
+]);
+const mainImageContainer = document.querySelector('.main-image');
+const image = document.createElement('img');
+image.setAttribute('src', yourMainProperty.src);
+if (mainImageContainer)
+    mainImageContainer.appendChild(image);

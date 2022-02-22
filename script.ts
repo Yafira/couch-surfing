@@ -4,9 +4,9 @@ import {
 	populateUser,
 	showDetails,
 	getTopTwoReviews,
-} from './utils';
+} from './utils.js';
 import { Price, Country } from './types'; // multiple exports
-import { Permissions, LoyaltyUser } from './enums'; // exports
+import { LoyaltyUser, adminPermissions } from './enums.js'; // exports
 import { Review } from './interfaces'; // export default
 const propertyContainer = document.querySelector('.properties');
 const reviewContainer = document.querySelector('.reviews');
@@ -38,29 +38,40 @@ const reviews: Review[] = [
 	},
 ];
 
-const you = {
+interface User {
+	permissions: adminPermissions;
+	firstName: string;
+	lastName: string;
+	isReturning: boolean;
+	age: number;
+	stayedAt: string[];
+}
+
+const you: User = {
 	firstName: 'Bobby',
 	lastName: 'Brown',
-	permissions: Permissions.ADMIN,
+	permissions: adminPermissions.ADMIN,
 	isReturning: true,
 	age: 35,
 	stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow'],
 };
 
-// Array of Properties
-const properties: {
+interface Property {
 	image: string;
 	title: string;
-	price: number;
+	price: Price;
 	location: {
 		firstLine: string;
 		city: string;
-		code: number;
+		code: number | string;
 		country: string;
 	};
 	contact: [number, string];
 	isAvailable: boolean;
-}[] = [
+}
+
+// Array of Properties
+const properties: Property[] = [
 	{
 		image: 'images/colombia-property.jpg',
 		title: 'Colombian Shack',
@@ -77,7 +88,7 @@ const properties: {
 	{
 		image: 'images/poland-property.jpg',
 		title: 'Polish Cottage',
-		price: 34,
+		price: 30,
 		location: {
 			firstLine: 'no 23',
 			city: 'Gdansk',
@@ -90,7 +101,7 @@ const properties: {
 	{
 		image: 'images/london-property.jpg',
 		title: 'London Flat',
-		price: 23,
+		price: 25,
 		location: {
 			firstLine: 'flat 15',
 			city: 'London',
@@ -99,6 +110,19 @@ const properties: {
 		},
 		contact: [+34829374892553, 'andyluger@aol.com'],
 		isAvailable: true,
+	},
+	{
+		image: 'images/malaysian-hotel.jpeg',
+		title: 'Malia Hotel',
+		price: 35,
+		location: {
+			firstLine: 'Room 4',
+			city: 'Malia',
+			code: 45334,
+			country: 'Malaysia',
+		},
+		contact: [+60349822083, 'lee34@gmail.com'],
+		isAvailable: false,
 	},
 ];
 
@@ -116,7 +140,7 @@ for (let i = 0; i < properties.length; i++) {
 	image.setAttribute('src', properties[i].image);
 	card.appendChild(image);
 	showDetails(you.permissions, card, properties[i].price);
-	propertyContainer.appendChild(card);
+	if (propertyContainer) propertyContainer.appendChild(card);
 }
 
 let count = 0;
@@ -128,13 +152,13 @@ function addReviews(array: Review[]): void {
 			const card = document.createElement('div');
 			card.classList.add('review-card');
 			card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name;
-			reviewContainer.appendChild(card);
+			if (reviewContainer) reviewContainer.appendChild(card);
 		}
-		container.removeChild(button);
+		if (container && button) container.removeChild(button);
 	}
 }
 
-button.addEventListener('click', () => addReviews(reviews));
+if (button) button.addEventListener('click', () => addReviews(reviews));
 
 let currentLocation: [string, string, number] = ['London', '11.03', 17];
 if (footer) {
@@ -152,9 +176,27 @@ class MainProperty {
 	src: string;
 	title: string;
 	reviews: Review[];
-	constructor(src, title, reviews) {
+	constructor(src: string, title: string, reviews: Review[]) {
 		this.src = src;
 		this.title = title;
 		this.reviews = reviews;
 	}
 }
+
+let yourMainProperty = new MainProperty(
+	'images/italian-property.jpg',
+	'Italian House',
+	[
+		{
+			name: 'Olive',
+			stars: 5,
+			loyaltyUser: LoyaltyUser.GOLD_USER,
+			date: '12-04-2021',
+		},
+	]
+);
+
+const mainImageContainer = document.querySelector('.main-image');
+const image = document.createElement('img');
+image.setAttribute('src', yourMainProperty.src);
+if (mainImageContainer) mainImageContainer.appendChild(image);

@@ -1,4 +1,4 @@
-export enum Permissions {
+export enum adminPermissions {
 	ADMIN = 'ADMIN',
 	READ_ONLY = 'READ_ONLY',
 }

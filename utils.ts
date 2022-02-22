@@ -1,7 +1,7 @@
 const reviewTotalDisplay = document.querySelector('#reviews');
 const returningUserDisplay = document.querySelector('#returning-user');
 const userNameDisplay = document.querySelector('#user');
-import { LoyaltyUser } from './enums.js';
+import { adminPermissions, LoyaltyUser } from './enums.js';
 import { Review } from './interfaces';
 
 export function showReviewTotal(
@@ -32,7 +32,7 @@ export function populateUser(isReturning: boolean, userName: string) {
 }
 
 export function showDetails(
-	value: boolean | Permissions,
+	value: adminPermissions | boolean,
 	element: HTMLDivElement,
 	price: number
 ) {

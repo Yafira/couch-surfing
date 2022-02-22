@@ -1,8 +1,8 @@
-export var Permissions;
-(function (Permissions) {
-    Permissions["ADMIN"] = "ADMIN";
-    Permissions["READ_ONLY"] = "READ_ONLY";
-})(Permissions || (Permissions = {}));
+export var adminPermissions;
+(function (adminPermissions) {
+    adminPermissions["ADMIN"] = "ADMIN";
+    adminPermissions["READ_ONLY"] = "READ_ONLY";
+})(adminPermissions || (adminPermissions = {}));
 export var LoyaltyUser;
 (function (LoyaltyUser) {
     LoyaltyUser["GOLD_USER"] = "GOLD_USER";

@@ -1,4 +1,4 @@
-import { LoyaltyUser } from './enums';
+import { LoyaltyUser } from './enums.js';
 
 export interface Review {
 	name: string;
