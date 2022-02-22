@@ -75,7 +75,7 @@ body {
 .break {
 	height: 1px;
 	width: 90%;
-	background-color: coral;
+	background-color: rgb(223, 185, 16);
 }
 
 button {
