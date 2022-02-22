@@ -7,6 +7,7 @@ import {
 } from './utils.js';
 import { LoyaltyUser, adminPermissions } from './enums.js'; // exports
 import { Review, User, Property } from './interfaces'; // export default
+import MainProperty from './classes';
 const propertyContainer = document.querySelector('.properties');
 const reviewContainer = document.querySelector('.reviews');
 const container = document.querySelector('.container');
@@ -145,18 +146,6 @@ if (footer) {
 		' ' +
 		currentLocation[2] +
 		'°';
-}
-
-// Classes
-class MainProperty {
-	src: string;
-	title: string;
-	reviews: Review[];
-	constructor(src: string, title: string, reviews: Review[]) {
-		this.src = src;
-		this.title = title;
-		this.reviews = reviews;
-	}
 }
 
 let yourMainProperty = new MainProperty(
