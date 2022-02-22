@@ -160,7 +160,7 @@ function addReviews(array: Review[]): void {
 
 if (button) button.addEventListener('click', () => addReviews(reviews));
 
-let currentLocation: [string, string, number] = ['London', '11.03', 17];
+let currentLocation: [string, string, number] = ['New York', '19.03', 43];
 if (footer) {
 	footer.innerHTML =
 		currentLocation[0] +
