@@ -5,9 +5,8 @@ import {
 	showDetails,
 	getTopTwoReviews,
 } from './utils.js';
-import { Price, Country } from './types'; // multiple exports
 import { LoyaltyUser, adminPermissions } from './enums.js'; // exports
-import { Review } from './interfaces'; // export default
+import { Review, User, Property } from './interfaces'; // export default
 const propertyContainer = document.querySelector('.properties');
 const reviewContainer = document.querySelector('.reviews');
 const container = document.querySelector('.container');
@@ -38,15 +37,6 @@ const reviews: Review[] = [
 	},
 ];
 
-interface User {
-	permissions: adminPermissions;
-	firstName: string;
-	lastName: string;
-	isReturning: boolean;
-	age: number;
-	stayedAt: string[];
-}
-
 const you: User = {
 	firstName: 'Bobby',
 	lastName: 'Brown',
@@ -55,20 +45,6 @@ const you: User = {
 	age: 35,
 	stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow'],
 };
-
-interface Property {
-	image: string;
-	title: string;
-	price: Price;
-	location: {
-		firstLine: string;
-		city: string;
-		code: number | string;
-		country: string;
-	};
-	contact: [number, string];
-	isAvailable: boolean;
-}
 
 // Array of Properties
 const properties: Property[] = [
