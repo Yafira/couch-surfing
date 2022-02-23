@@ -7,7 +7,7 @@ import {
 } from './utils.js';
 import { LoyaltyUser, adminPermissions } from './enums.js'; // exports
 import { Review, User, Property } from './interfaces'; // export default
-import MainProperty from './classes';
+import MainProperty from './classes.js';
 const propertyContainer = document.querySelector('.properties');
 const reviewContainer = document.querySelector('.reviews');
 const container = document.querySelector('.container');
@@ -39,8 +39,8 @@ const reviews: Review[] = [
 ];
 
 const you: User = {
-	firstName: 'Bobby',
-	lastName: 'Brown',
+	firstName: 'User09987',
+	lastName: '000',
 	permissions: adminPermissions.ADMIN,
 	isReturning: true,
 	age: 35,

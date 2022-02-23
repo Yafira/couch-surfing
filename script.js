@@ -1,6 +1,7 @@
 // Modules
 import { showReviewTotal, populateUser, showDetails, getTopTwoReviews, } from './utils.js';
 import { LoyaltyUser, adminPermissions } from './enums.js'; // exports
+import MainProperty from './classes.js';
 const propertyContainer = document.querySelector('.properties');
 const reviewContainer = document.querySelector('.reviews');
 const container = document.querySelector('.container');
@@ -29,8 +30,8 @@ const reviews = [
     },
 ];
 const you = {
-    firstName: 'Bobby',
-    lastName: 'Brown',
+    firstName: 'User09987',
+    lastName: '000',
     permissions: adminPermissions.ADMIN,
     isReturning: true,
     age: 35,
@@ -133,17 +134,6 @@ if (footer) {
             ' ' +
             currentLocation[2] +
             '°';
-}
-// Classes
-class MainProperty {
-    src;
-    title;
-    reviews;
-    constructor(src, title, reviews) {
-        this.src = src;
-        this.title = title;
-        this.reviews = reviews;
-    }
 }
 let yourMainProperty = new MainProperty('images/italian-property.jpg', 'Italian House', [
     {
